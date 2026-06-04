@@ -1,0 +1,8 @@
+package com.rafasantosdevv.sysMarcial.repository;
+
+import com.rafasantosdevv.sysMarcial.domain.Plano;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PlanoRepository extends JpaRepository<Plano, Long> {
+
+}

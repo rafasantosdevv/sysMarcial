@@ -2,7 +2,6 @@ package com.rafasantosdevv.sysMarcial.domain;
 
 
 import com.rafasantosdevv.sysMarcial.domain.enums.StatusFatura;
-import com.rafasantosdevv.sysMarcial.domain.enums.StatusMatricula;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -30,7 +29,7 @@ public class FaturaMatricula {
     private LocalDateTime dataPagamento;
 
     @Column(name = "data_cancelamento")
-    private LocalDateTime dataCancelamento;
+    private LocalDate dataCancelamento;
 
     @Enumerated(EnumType.STRING)
     private StatusFatura status = StatusFatura.ABERTA;
@@ -75,11 +74,11 @@ public class FaturaMatricula {
         this.dataPagamento = dataPagamento;
     }
 
-    public LocalDateTime getDataCancelamento() {
+    public LocalDate getDataCancelamento() {
         return dataCancelamento;
     }
 
-    public void setDataCancelamento(LocalDateTime dataCancelamento) {
+    public void setDataCancelamento(LocalDate dataCancelamento) {
         this.dataCancelamento = dataCancelamento;
     }
 
@@ -90,13 +89,5 @@ public class FaturaMatricula {
     public void setStatus(StatusFatura status) {
         this.status = status;
     }
-    /*
-    matricula_id BIGINT NOT NULL REFERENCES matriculas(id),
-    data_vencimento DATE NOT NULL,
-    valor NUMERIC(10, 2) NOT NULL CHECK ( valor >= 0 ),
-    data_pagamento TIMESTAMP,
-    data_cancelamento DATE,
-    status VARCHAR(20) NOT NULL DEFAULT 'ABERTA',
-    CHECK ( status IN ('ABERTA', 'PAGA', 'CANCELADA', 'VENCIDA') ),
-    UNIQUE (matricula_id, data_vencimento) */
+
 }
