@@ -3,6 +3,7 @@ package com.rafasantosdevv.sysMarcial.controller;
 import com.rafasantosdevv.sysMarcial.dto.AlunoRequest;
 import com.rafasantosdevv.sysMarcial.dto.AlunoResponse;
 import com.rafasantosdevv.sysMarcial.service.AlunoService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -18,12 +19,13 @@ public class AlunoController {
         this.alunoService = alunoService;
     }
 
-    @GetMapping
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public AlunoResponse cadastrar(@RequestBody AlunoRequest alunoRequest){
         return alunoService.cadastrarAluno(alunoRequest);
     }
 
+    @GetMapping
     public Page<AlunoResponse> listar(Pageable pageable){
         return alunoService.listarAluno(pageable);
     }

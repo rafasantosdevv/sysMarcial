@@ -1,0 +1,55 @@
+@baseUrl = http://localhost:8080
+
+### Cadastrando
+POST {{baseUrl}}/alunos
+Content-Type: application/json
+
+{
+  "nome":"Rafael",
+  "dataNascimento":"2009-03-08",
+  "sexo": "M",
+  "telefone": "40028922",
+  "celular": "40018922",
+  "email": "email@fael.com",
+  "observacao": "aluno dotado rs",
+  "endereco":"rua sao feliqs",
+  "numero":"49",
+  "complemento": "aquele la",
+  "bairro": "alvim artur",
+  "cidade": "são paulo",
+  "estado": "SP",
+  "cep": "08295-499"
+}
+
+### Listando Alunos
+GET {{baseUrl}}/alunos
+
+###Listando Aluno com pag.
+GET {{baseUrl}}/alunos?page=0&size=10&sort=nome,asc
+
+###Buscando Por Id
+GET {{baseUrl}}/alunos/1
+
+###Atualizar Alunos
+PUT {{baseUrl}}/alunos/1
+Content-Type:application/json
+
+{
+  "nome":"Julia Maligna",
+  "dataNascimento":"2009-03-08",
+  "sexo": "M",
+  "telefone": "40028922",
+  "celular": "40018922",
+  "email": "email@fael.com",
+  "observacao": "aluno dotado rs",
+  "endereco":"rua sao feliqs",
+  "numero":"49",
+  "complemento": "aquele la",
+  "bairro": "alvim artur",
+  "cidade": "são paulo",
+  "estado": "SP",
+  "cep": "08295-499"
+}
+
+###Excluindo aluno
+DELETE {{baseUrl}}/alunos/1
