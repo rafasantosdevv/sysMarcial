@@ -6,9 +6,8 @@ import com.rafasantosdevv.sysMarcial.dto.AlunoResponse;
 import com.rafasantosdevv.sysMarcial.repository.AlunoRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
+
 import java.awt.print.*;
 
 @Service
@@ -29,7 +28,7 @@ public class AlunoService {
         return AlunoResponse.fromEntity(alunoSalvo);
     }
 
-    public Page<AlunoResponse> listar(Pageable pageable){
+    public Page<AlunoResponse> listarAluno(Pageable pageable){
         return alunoRepository.findAll(pageable).map(AlunoResponse::fromEntity);
     }
 
@@ -38,14 +37,14 @@ public class AlunoService {
         return AlunoResponse.fromEntity(aluno);
     }
 
-    public AlunoResponse atualizar(long id, AlunoRequest request){
+    public AlunoResponse atualizarAluno(long id, AlunoRequest request){
         Aluno aluno = buscarEntidadePorId(id);
         request.preencher(aluno);
         Aluno alunoAtualizado = alunoRepository.save(aluno);
         return AlunoResponse.fromEntity(alunoAtualizado);
     }
 
-    public void remover(long id){
+    public void excluirAluno(long id){
         Aluno aluno = buscarEntidadePorId(id);
         alunoRepository.delete(aluno);
     }
