@@ -21,7 +21,7 @@ public class AlunoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AlunoResponse cadastrar(@RequestBody AlunoRequest alunoRequest){
+    public AlunoResponse cadastrar(@RequestBody @Valid AlunoRequest alunoRequest){
         return alunoService.cadastrarAluno(alunoRequest);
     }
 
@@ -36,7 +36,7 @@ public class AlunoController {
     }
 
     @PutMapping("/{id}")
-    public AlunoResponse atualizar(@PathVariable long id, @RequestBody AlunoRequest alunoRequest){
+    public AlunoResponse atualizar(@PathVariable long id, @RequestBody @Valid AlunoRequest alunoRequest){
         return alunoService.atualizarAluno(id, alunoRequest);
     }
 
