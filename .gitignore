@@ -29,5 +29,10 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+
 ### VS Code ###
 .vscode/
+/imgs/duas.png
+/imgs/quatro.png
+/imgs/tres.png
+/imgs/uma.png
