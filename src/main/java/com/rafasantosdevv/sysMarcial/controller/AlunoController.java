@@ -1,5 +1,6 @@
 package com.rafasantosdevv.sysMarcial.controller;
 
+import com.rafasantosdevv.sysMarcial.dto.AlunoFiltroRequest;
 import com.rafasantosdevv.sysMarcial.dto.AlunoRequest;
 import com.rafasantosdevv.sysMarcial.dto.AlunoResponse;
 import com.rafasantosdevv.sysMarcial.service.AlunoService;
@@ -26,8 +27,8 @@ public class AlunoController {
     }
 
     @GetMapping
-    public Page<AlunoResponse> listar(Pageable pageable){
-        return alunoService.listarAluno(pageable);
+    public Page<AlunoResponse> listar(AlunoFiltroRequest filtro, Pageable pageable){
+        return alunoService.listarAluno(filtro, pageable);
     }
 
     @GetMapping("/{id}")

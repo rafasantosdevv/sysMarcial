@@ -1,10 +1,12 @@
 package com.rafasantosdevv.sysMarcial.service;
 
 import com.rafasantosdevv.sysMarcial.domain.Aluno;
+import com.rafasantosdevv.sysMarcial.dto.AlunoFiltroRequest;
 import com.rafasantosdevv.sysMarcial.dto.AlunoRequest;
 import com.rafasantosdevv.sysMarcial.dto.AlunoResponse;
 import com.rafasantosdevv.sysMarcial.exception.RegraNegocioException;
 import com.rafasantosdevv.sysMarcial.repository.AlunoRepository;
+import com.rafasantosdevv.sysMarcial.specification.AlunoSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
@@ -29,8 +31,8 @@ public class AlunoService {
         return AlunoResponse.fromEntity(alunoSalvo);
     }
 
-    public Page<AlunoResponse> listarAluno(Pageable pageable){
-        return alunoRepository.findAll(pageable).map(AlunoResponse::fromEntity);
+    public Page<AlunoResponse> listarAluno(AlunoFiltroRequest filtro, Pageable pageable){
+        return alunoRepository.findAll(AlunoSpecification.comFiltro(filtro), pageable).map(AlunoResponse::fromEntity);
     }
 
     public AlunoResponse buscarPorId(long id){
