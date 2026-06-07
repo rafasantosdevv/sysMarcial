@@ -1,530 +1,610 @@
-# 🥋 SysMarcial - Sistema de Gestão para Academias de Lutas Marciais
+# 🥋 Sistema Marcial - Academia de Lutas Marciais
 
-> ⚠️ **Status do Projeto**: 🚧 Em Desenvolvimento
-> 
-> Este projeto ainda está em fase inicial de desenvolvimento e receberá constantes atualizações, melhorias e novas funcionalidades.
+Um sistema completo de gerenciamento para academias de lutas marciais, desenvolvido em Java com Spring Boot. Controla desde os dados dos usuários até as modalidades, graduações, planos de mensalidade e faturas.
 
-## 📋 Sobre o Projeto
+## 📋 Sumário
 
-**SysMarcial** é um sistema completo de gestão para academias de lutas marciais e fitness. O sistema permite gerenciar desde os dados pessoais dos alunos, passando pela administração de modalidades (Jiu-Jitsu, Muay Thai, Boxe, Musculação, etc.), até o controle financeiro com planos de mensalidade, faturas, assiduidade e geração de relatórios.
+- [Visão Geral](#visão-geral)
+- [Funcionalidades Principais](#funcionalidades-principais)
+- [Stack Tecnológico](#-stack-tecnológico)
+- [Arquitetura](#-arquitetura-e-estrutura)
+- [Instalação e Configuração](#-instalação-e-configuração)
+- [Como Executar](#-como-executar)
+- [API Endpoints](#-api-endpoints)
+- [Entidades Principais](#-entidades-principais)
+- [Migrações do Banco de Dados](#-migrações-de-banco-de-dados)
+- [Documentação da API](#-documentação-da-api)
+- [Próximas Atualizações](#-próximas-atualizações)
+- [Contribuições](#-contribuições)
+- [Autor](#-autor)
 
-## ✨ Funcionalidades Principais
+---
 
-- **👥 Gerenciamento de Alunos**: Cadastro completo com dados pessoais, endereço, telefone e email com validações
-- **🥊 Modalidades de Lutas**: Gestão de diferentes artes marciais oferecidas pela academia
-- **🏅 Graduações**: Controle de níveis de experiência (Faixa Branca, Azul, Roxa, etc.) por modalidade
-- **💳 Planos e Mensalidades**: Definição de planos de pagamento com valores específicos por modalidade
-- **📋 Matrículas**: Associação de alunos a modalidades com datas de início, fim e status
-- **💰 Faturas**: Geração, controle e acompanhamento de faturas mensais com status (Aberta, Paga, Cancelada, Vencida)
-- **📊 Relatórios**: Faturamento mensal, alunos por cidade, e faturas em aberto
-- **⏱️ Assiduidade**: Registro de entrada e saída de alunos nas aulas
-- **🔍 Filtros Avançados**: Busca de alunos por nome, cidade ou estado com paginação
+## 🎯 Visão Geral
+
+O **Sistema Marcial** foi desenvolvido para facilitar o gerenciamento operacional de academias de lutas marciais. A plataforma permite:
+
+- ✅ Gerenciar dados completos de alunos (pessoais, contato, endereço)
+- ✅ Controlar modalidades e lutas oferecidas (Jiu-Jitsu, Muay Thai, Boxe, etc.)
+- ✅ Definir graduações/níveis para cada modalidade
+- ✅ Criar e gerenciar planos de mensalidade
+- ✅ Registrar matrículas de alunos
+- ✅ Gerar e controlar faturas de pagamento
+- ✅ Registrar assiduidade (entrada/saída dos alunos)
+- ✅ Gerar relatórios financeiros e gerenciais
+
+---
+
+## 🎯 Funcionalidades Principais
+
+### 👥 Gerenciamento de Alunos
+- Cadastro completo com dados pessoais
+- Informações de contato (telefone, celular, email)
+- Dados de endereço completo
+- Histórico de criação e atualização
+- Validação de email único
+- Filtros por nome, email, celular, cidade e estado
+
+### 🥋 Modalidades de Lutas
+- Cadastro de modalidades (Jiu-Jitsu, Muay Thai, Boxe, Taekwondo, etc.)
+- Ativação/desativação de modalidades
+- Associação com graduações e planos
+
+### 📊 Graduações/Faixas
+- Níveis de experiência por modalidade
+- Exemplo: Faixa Branca, Faixa Roxa, Faixa Marrom, Faixa Preta
+
+### 💰 Planos e Mensalidades
+- Definição de planos de pagamento
+- Valores específicos por modalidade
+- Ativação/desativação de planos
+
+### 📝 Matrículas
+- Associação de alunos à academia
+- Registro de data de matrícula
+- Dia de vencimento configurável
+- Controle de status (Ativa/Encerrada)
+
+### 📄 Matrículas por Modalidade
+- Alunos podem se matricular em múltiplas modalidades
+- Graduação atual em cada modalidade
+- Plano associado
+- Datas de início e fim
+
+### 💳 Faturas
+- Geração automática de faturas de mensalidade
+- Controle de status (Aberta, Paga, Cancelada)
+- Registro de data de pagamento
+- Registro de cancelamento
+
+### 📌 Assiduidade
+- Registro de entrada e saída dos alunos
+- Timestamp automático na entrada
+- Controle de frequência
+
+### 📈 Relatórios
+- **Faturamento Mensal**: Total de faturamento por mês
+- **Alunos por Cidade**: Distribuição geográfica dos alunos
+- **Faturas em Aberto**: Listagem de pagamentos pendentes
+
+---
 
 ## 🛠️ Stack Tecnológico
 
-| Componente | Tecnologia | Versão |
+| Tecnologia | Descrição | Versão |
 |------------|-----------|--------|
-| **Linguagem** | Java | 17+ |
-| **Framework Web** | Spring Boot | 4.0.6 |
-| **ORM** | Spring Data JPA + Hibernate | - |
-| **Banco de Dados** | PostgreSQL | 12+ |
-| **Migrações** | Flyway | - |
-| **Build** | Maven | 3.6+ |
-| **Validação** | Jakarta Validation | - |
-| **Utility** | Lombok | - |
+| **Java** | Linguagem de programação principal | 17+ |
+| **Spring Boot** | Framework web e de aplicação | 4.0.6 |
+| **Spring Data JPA** | Persistência de dados e ORM | - |
+| **PostgreSQL** | Banco de dados relacional | 12+ |
+| **Flyway** | Controle de versão do banco de dados | - |
+| **Maven** | Gerenciador de dependências e build | 3.6+ |
+| **Lombok** | Redução de boilerplate em Java | - |
+| **Swagger/OpenAPI** | Documentação interativa da API | 2.8.5 |
+| **Spring Validation** | Validação de dados | - |
 
-## 📂 Estrutura do Projeto
+---
+
+## 📊 Arquitetura e Estrutura
+
+O projeto segue a arquitetura **MVC (Model-View-Controller)** com separação clara de responsabilidades:
 
 ```
-sysMarcial/
-├── src/
-│   ├── main/
-│   │   ├── java/com/rafasantosdevv/sysMarcial/
-│   │   │   ├── controller/          # Controllers REST API
-│   │   │   ├── service/             # Lógica de negócio
-│   │   │   ├── domain/              # Entidades JPA
-│   │   │   ├── dto/                 # Data Transfer Objects
-│   │   │   ├── repository/          # Interfaces de acesso a dados
-│   │   │   ├── exception/           # Manipulação de exceções
-│   │   │   ├── specification/       # JPA Specifications para filtros
-│   │   │   └── projection/          # Projeções para relatórios
-│   │   └── resources/
-│   │       ├── application.properties
-│   │       └── db/migration/        # Scripts Flyway (V1, V2, V3...)
-│   └── test/
-├── pom.xml                          # Configuração Maven
-├── alunos.http                      # Requisições HTTP para testes
-└── README.md                        # Este arquivo
+src/
+├── main/
+│   ├── java/com/rafasantosdevv/sysMarcial/
+│   │   ├── config/               # Configurações (OpenAPI, etc)
+│   │   ├── controller/           # Controllers REST API
+│   │   ├── service/              # Lógica de negócio
+│   │   ├── domain/               # Entidades JPA (Models)
+│   │   ├── dto/                  # Data Transfer Objects (Request/Response)
+│   │   ├── repository/           # Interfaces de acesso a dados
+│   │   ├── specification/        # JPA Specifications para filtros
+│   │   ├── exception/            # Tratamento de exceções
+│   │   ├── projection/           # Projections para relatórios
+│   │   └── doc/                  # Documentação Swagger
+│   └── resources/
+│       ├── application.properties # Configurações da aplicação
+│       └── db/migration/         # Scripts Flyway (versionamento DB)
+└── test/
+    └── java/                     # Testes unitários
 ```
 
-## 🗄️ Modelo de Dados
+### Padrões de Design Utilizados:
+- **DTO Pattern**: Separação entre modelos de domínio e transferência de dados
+- **Repository Pattern**: Abstração de acesso a dados
+- **Service Pattern**: Lógica de negócio centralizada
+- **Specification Pattern**: Filtros dinâmicos com JPA Specifications
+- **Exception Handling**: Tratamento global de exceções
 
-### Entidades Principais
+---
 
-#### **Aluno** 👤
-Armazena informações completas dos alunos da academia:
-- **Dados Pessoais**: Nome, Data de Nascimento, Sexo
-- **Contato**: Telefone, Celular, Email (com validação)
-- **Endereço**: Rua, Número, Complemento, Bairro, Cidade, Estado, CEP
-- **Metadados**: Criado em, Atualizado em, Observações
+## 📦 Entidades Principais
 
-```sql
-CREATE TABLE alunos (
-  id BIGSERIAL PRIMARY KEY,
-  nome VARCHAR(150) NOT NULL,
-  data_nascimento DATE,
-  email VARCHAR(150) UNIQUE,
-  ...
-);
-```
+### **Aluno**
+Representa um aluno cadastrado na academia.
 
-#### **Modalidade** 🥊
-Define os tipos de lutas/artes marciais oferecidas:
-- Nome da modalidade (ex: Jiu-Jitsu, Muay Thai, Boxe, Musculação, Funcional)
-- Status ativo/inativo
+**Campos principais:**
+- `id`: Identificador único
+- `nome`: Nome completo (obrigatório, máx 150 caracteres)
+- `dataNascimento`: Data de nascimento (deve estar no passado)
+- `sexo`: M (Masculino) ou F (Feminino)
+- `telefone`: Telefone de contato
+- `celular`: Celular de contato
+- `email`: Email único (validado)
+- `observacao`: Observações gerais
+- `endereco`: Rua do endereço
+- `numero`: Número da residência
+- `complemento`: Apartamento, bloco, etc
+- `bairro`: Bairro
+- `cidade`: Cidade
+- `estado`: Estado (sigla: SP, RJ, etc)
+- `cep`: CEP
+- `criadoEm`: Data/hora de criação (preenchida automaticamente)
+- `atualizadoEm`: Data/hora da última atualização (preenchida automaticamente)
 
-Exemplos de modalidades incluídas:
-- Musculação
-- Funcional
-- Jiu-Jitsu
-- Muay Thai
-- Pilates
+### **Modalidade**
+Define os tipos de lutas/artes marciais oferecidas.
 
-#### **Graduação** 🏅
-Níveis de experiência dentro de uma modalidade:
-- Nome da graduação (ex: Faixa Branca, Faixa Azul, Faixa Roxa)
-- Associada a uma modalidade específica
+**Campos principais:**
+- `id`: Identificador único
+- `nome`: Nome da modalidade (ex: Jiu-Jitsu, Muay Thai, Boxe)
+- `ativa`: Status ativo/inativo (padrão: true)
 
-Exemplos para Jiu-Jitsu:
-- Faixa Branca
-- Faixa Azul
-- Faixa Roxa
+### **Graduacao**
+Níveis de experiência dentro de uma modalidade.
 
-#### **Plano** 💳
-Planos de mensalidade oferecidos:
-- Nome do plano (ex: Mensal, Trimestral)
-- Valor mensal em BigDecimal
-- Modalidade associada
-- Status ativo/inativo
+**Campos principais:**
+- `id`: Identificador único
+- `nome`: Nome da graduação (ex: Faixa Branca, Faixa Roxa, Faixa Preta)
+- `modalidade`: Referência à modalidade (relacionamento ManyToOne)
 
-Exemplos:
-- Musculação - Mensal: R$ 120,00
-- Musculação - Trimestral: R$ 330,00
-- Funcional - Mensal: R$ 150,00
-- Jiu-Jitsu - Mensal: R$ 180,00
+### **Plano**
+Planos de mensalidade oferecidos.
 
-#### **Matrícula** 📋
-Associação entre aluno e academia:
-- Data de matrícula
-- Dia de vencimento (1-31) para cobrança recorrente
-- Data de encerramento (opcional)
-- Status: ATIVA, ENCERRADA, CANCELADA
+**Campos principais:**
+- `id`: Identificador único
+- `nome`: Nome do plano
+- `valorMensal`: Valor mensal em BigDecimal
+- `modalidade`: Referência à modalidade (relacionamento ManyToOne)
+- `ativo`: Status ativo/inativo (padrão: true)
 
-#### **MatriculaModalidade** 🔗
-Associação entre matrícula, modalidade, graduação e plano:
-- Permite que um aluno se matricule em múltiplas modalidades
-- Armazena a graduação atual do aluno
-- Vincula ao plano contratado
-- Datas de início e fim da modalidade
+### **Matricula**
+Associação de um aluno à academia.
 
-#### **FaturaMatricula** 💰
-Registro de pagamentos mensais:
-- Valor da fatura
-- Data de vencimento
-- Data de pagamento
-- Data de cancelamento
-- Status: ABERTA, PAGA, CANCELADA, VENCIDA
+**Campos principais:**
+- `id`: Identificador único
+- `aluno`: Referência ao aluno (relacionamento ManyToOne)
+- `dataMatricula`: Data de matrícula
+- `diaVencimento`: Dia do mês em que a mensalidade vence
+- `dataEncerramento`: Data de encerramento (opcional)
+- `status`: Status da matrícula (ATIVA, ENCERRADA)
 
-#### **Assiduidade** ⏱️
-Registro de presença em aulas:
-- Matrícula do aluno
-- Data e hora de entrada (auto-preenchida com CURRENT_TIMESTAMP)
-- Data e hora de saída (preenchida manualmente)
+### **MatriculaModalidade**
+Associação entre matrícula e modalidade/plano específico.
 
-## 🌐 API REST - Endpoints
+**Campos principais:**
+- `id`: Identificador único
+- `matricula`: Referência à matrícula (relacionamento ManyToOne)
+- `modalidade`: Referência à modalidade (relacionamento ManyToOne)
+- `graduacao`: Graduação atual do aluno (relacionamento ManyToOne)
+- `plano`: Plano contratado (relacionamento ManyToOne)
+- `dataInicio`: Data de início (preenchida automaticamente com data atual)
+- `dataFim`: Data de término (opcional)
 
-### Alunos
+### **FaturaMatricula**
+Controle de faturas de mensalidade.
 
-#### Cadastrar novo aluno
-```http
-POST /alunos
-Content-Type: application/json
+**Campos principais:**
+- `id`: Identificador único
+- `matricula`: Referência à matrícula (relacionamento ManyToOne)
+- `dataVencimento`: Data de vencimento
+- `valor`: Valor da fatura (BigDecimal)
+- `dataPagamento`: Data/hora do pagamento (preenchida ao pagar)
+- `dataCancelamento`: Data de cancelamento (se cancelada)
+- `status`: Status da fatura (ABERTA, PAGA, CANCELADA)
 
-{
-  "nome": "João Silva",
-  "dataNascimento": "1995-05-15",
-  "sexo": "M",
-  "email": "joao@example.com",
-  "celular": "11999999999",
-  "telefone": "1133334444",
-  "endereco": "Rua Principal",
-  "numero": "123",
-  "complemento": "Apto 45",
-  "bairro": "Centro",
-  "cidade": "São Paulo",
-  "estado": "SP",
-  "cep": "01310100",
-  "observacao": "Aluno referência"
-}
-```
+### **Assiduidade**
+Registro de presença dos alunos.
 
-#### Listar alunos
-```http
-GET /alunos?page=0&size=10&sort=nome,asc
-GET /alunos?nome=Rafael&page=0&size=10
-GET /alunos?cidade=SãoPaulo&page=0&size=10
-GET /alunos?estado=SP&page=0&size=10
-```
+**Campos principais:**
+- `id`: Identificador único
+- `matricula`: Referência à matrícula (relacionamento ManyToOne)
+- `dataEntrada`: Data/hora de entrada (preenchida automaticamente)
+- `dataSaida`: Data/hora de saída (preenchida ao sair)
 
-#### Buscar aluno por ID
-```http
-GET /alunos/1
-```
+---
 
-#### Atualizar aluno
-```http
-PUT /alunos/1
-Content-Type: application/json
-
-{
-  "nome": "João Silva Updated",
-  "email": "novo@email.com",
-  ...
-}
-```
-
-#### Deletar aluno
-```http
-DELETE /alunos/1
-```
-
-### Relatórios
-
-#### Faturamento mensal
-```http
-GET /relatorios/faturamento-mensal
-```
-Retorna o faturamento agrupado por mês.
-
-#### Alunos por cidade
-```http
-GET /relatorios/alunos-por-cidade
-```
-Retorna a quantidade de alunos agrupada por cidade.
-
-#### Faturas em aberto
-```http
-GET /relatorios/faturas-em-aberto
-```
-Retorna todas as faturas com status ABERTA ou VENCIDA.
-
-## 🚀 Como Executar
+## 🚀 Instalação e Configuração
 
 ### Pré-requisitos
 
-- **Java 17 ou superior** ([Download JDK](https://www.oracle.com/java/technologies/downloads/))
-- **Maven 3.6+** ([Download Maven](https://maven.apache.org/download.cgi))
-- **PostgreSQL 12+** ([Download PostgreSQL](https://www.postgresql.org/download/))
+Antes de começar, certifique-se de ter instalado:
 
-### 1. Configurar Banco de Dados
+- **Java 17+**: [Download Java](https://www.oracle.com/java/technologies/downloads/#java17)
+- **Maven 3.6+**: [Download Maven](https://maven.apache.org/download.cgi)
+- **PostgreSQL 12+**: [Download PostgreSQL](https://www.postgresql.org/download/)
 
-Crie um banco de dados PostgreSQL:
+### 1. Clone o Repositório
 
 ```bash
-# Acesse o PostgreSQL
-psql -U postgres
-
-# Crie o banco de dados
-CREATE DATABASE academia;
-
-# Crie um usuário (opcional)
-CREATE USER sysmarcial WITH PASSWORD 'sua_senha';
-ALTER ROLE sysmarcial WITH CREATEDB;
+git clone https://github.com/rafasantosdevv/sysMarcial.git
+cd sysMarcial
 ```
 
-### 2. Configurar a Aplicação
+### 2. Configuração do Banco de Dados
 
-Atualize as credenciais do banco em `src/main/resources/application.properties`:
+#### Criar o banco de dados PostgreSQL:
+
+```sql
+CREATE DATABASE academia;
+```
+
+#### Atualizar as credenciais
+
+Abra `src/main/resources/application.properties` e configure suas credenciais:
 
 ```properties
-spring.application.name=sysMarcial
+# Configurações do Datasource
 spring.datasource.url=jdbc:postgresql://localhost:5432/academia
-spring.datasource.username=postgres
+spring.datasource.username=seu_usuario
 spring.datasource.password=sua_senha
 
+# Configurações JPA/Hibernate
 spring.jpa.hibernate.ddl-auto=validate
 spring.jpa.show-sql=true
 
+# Configurações Flyway
 spring.flyway.enabled=true
 spring.flyway.locations=classpath:db/migration
 ```
 
 **Explicação das propriedades:**
-- `ddl-auto=validate`: Valida o schema sem fazer alterações (Flyway gerencia isso)
-- `show-sql=true`: Exibe as SQL executadas (remova em produção)
-- Flyway executa as migrações automaticamente na inicialização
+- `spring.datasource.url`: URL de conexão com o banco
+- `spring.datasource.username`: Usuário do PostgreSQL
+- `spring.datasource.password`: Senha do PostgreSQL
+- `spring.jpa.hibernate.ddl-auto=validate`: Valida as tabelas sem criar/alterar
+- `spring.flyway.enabled=true`: Ativa as migrações automáticas
 
-### 3. Executar a Aplicação
+---
 
-**Opção 1 - Com Maven**
+## 🚀 Como Executar
+
+### Opção 1: Executar com Maven (desenvolvimento)
+
 ```bash
-# Clone o repositório
-git clone https://github.com/rafasantosdevv/sysMarcial.git
-cd sysMarcial
-
-# Execute a aplicação
-mvn spring-boot:run
+# Compile e execute com Maven
+mvn clean spring-boot:run
 ```
 
-**Opção 2 - Build e execução JAR**
+### Opção 2: Compilar e gerar JAR
+
 ```bash
-# Compile e empacote
+# Compile e crie o JAR executável
 mvn clean package
 
 # Execute o JAR
 java -jar target/sysMarcial-0.0.1-SNAPSHOT.jar
 ```
 
-A aplicação estará disponível em: **http://localhost:8080**
+### Verificar se a aplicação está rodando
 
-## 📝 Migrações de Banco de Dados
+A aplicação estará disponível em:
+- **URL Base**: `http://localhost:8080`
+- **Swagger UI**: `http://localhost:8080/swagger-ui.html`
+- **OpenAPI JSON**: `http://localhost:8080/v3/api-docs`
 
-O projeto utiliza **Flyway** para versionamento e controle de migrações do banco de dados. As migrações são executadas automaticamente na inicialização.
+---
 
-### Arquivos de Migração
+## 📡 API Endpoints
 
-#### `V1__create_academia_schema.sql`
-Cria todas as tabelas principais:
-- alunos
-- modalidades
-- graduacoes
-- planos
-- matriculas
-- matriculas_modalidades
-- faturas_matriculas
-- assiduidade
+### 👥 Alunos
 
-#### `V2__insert_dados_iniciais.sql`
-Insere dados iniciais:
-- 5 Modalidades (Musculação, Funcional, Jiu-Jitsu, Muay Thai, Pilates)
-- Planos padrão para cada modalidade
-- Graduações para Jiu-Jitsu
+| Método | Endpoint | Descrição | Status |
+|--------|----------|-----------|--------|
+| `POST` | `/alunos` | Cadastrar novo aluno | 201 |
+| `GET` | `/alunos` | Listar alunos (com paginação e filtros) | 200 |
+| `GET` | `/alunos/{id}` | Buscar aluno por ID | 200 |
+| `PUT` | `/alunos/{id}` | Atualizar aluno | 200 |
+| `DELETE` | `/alunos/{id}` | Deletar aluno | 204 |
 
-#### `V3__inserir_dados_financeiro.sql`
-Insere dados de teste para demonstração:
-- 2 Matrículas de alunos
-- MatrículaModalidade associadas
-- Faturas mensais com diferentes status
+### 📈 Relatórios
 
-### Adicionar Novas Migrações
+| Método | Endpoint | Descrição | Status |
+|--------|----------|-----------|--------|
+| `GET` | `/relatorios/faturamento-mensal` | Faturamento mensal | 200 |
+| `GET` | `/relatorios/alunos-por-cidade` | Distribuição de alunos por cidade | 200 |
+| `GET` | `/relatorios/faturas-em-aberto` | Faturas pendentes de pagamento | 200 |
 
-Para criar uma nova migração:
+### 📝 Exemplo de Requisição - Cadastrar Aluno
 
-1. Crie um arquivo em `src/main/resources/db/migration/`
-2. Nomeie como `V<numero>__<descricao>.sql` (ex: `V4__add_column_ativo.sql`)
-3. Escreva o SQL desejado
-4. Na próxima execução, Flyway executará automaticamente
+**Request:**
+```http
+POST /alunos HTTP/1.1
+Content-Type: application/json
+Host: localhost:8080
 
-```sql
--- V4__add_column_ativo.sql
-ALTER TABLE planos ADD COLUMN descricao VARCHAR(500);
+{
+  "nome": "João Silva",
+  "dataNascimento": "1995-05-15",
+  "sexo": "M",
+  "telefone": "1133334444",
+  "celular": "11999999999",
+  "email": "joao@example.com",
+  "observacao": "Aluno iniciante",
+  "endereco": "Rua Principal",
+  "numero": "123",
+  "complemento": "Apartamento 202",
+  "bairro": "Centro",
+  "cidade": "São Paulo",
+  "estado": "SP",
+  "cep": "01310100"
+}
 ```
 
-## 🧪 Testando a API
+**Response (201 Created):**
+```json
+{
+  "id": 1,
+  "nome": "João Silva",
+  "dataNascimento": "1995-05-15",
+  "sexo": "M",
+  "telefone": "1133334444",
+  "celular": "11999999999",
+  "email": "joao@example.com",
+  "observacao": "Aluno iniciante",
+  "endereco": "Rua Principal",
+  "numero": "123",
+  "complemento": "Apartamento 202",
+  "bairro": "Centro",
+  "cidade": "São Paulo",
+  "estado": "SP",
+  "cep": "01310100",
+  "criadoEm": "2025-06-07T12:30:45",
+  "atualizadoEm": null
+}
+```
 
-### Usando o arquivo HTTP incluído
-
-O projeto inclui um arquivo `alunos.http` com exemplos de requisições. Use uma extensão HTTP Client (como REST Client do VS Code):
+### 📝 Exemplo de Requisição - Listar Alunos com Paginação
 
 ```http
-@baseUrl = http://localhost:8080
-
-### Cadastrando aluno
-POST {{baseUrl}}/alunos
-Content-Type: application/json
-
-{
-  "nome":"João Silva",
-  "dataNascimento":"1995-05-15",
-  "sexo": "M",
-  "email": "joao@example.com",
-  "celular": "11999999999"
-}
-
-### Listando alunos com paginação
-GET {{baseUrl}}/alunos?page=0&size=10&sort=nome,asc
-
-### Buscando por ID
-GET {{baseUrl}}/alunos/1
-
-### Faturamento mensal
-GET {{baseUrl}}/relatorios/faturamento-mensal
+GET /alunos?page=0&size=10&sort=nome,asc HTTP/1.1
+Host: localhost:8080
 ```
 
-### Usando cURL
+**Parâmetros de Query:**
+- `page`: Número da página (começa em 0)
+- `size`: Quantidade de registros por página
+- `sort`: Campo para ordenação (padrão: id)
 
-```bash
-# Cadastrar aluno
-curl -X POST http://localhost:8080/alunos \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nome":"João Silva",
-    "dataNascimento":"1995-05-15",
-    "email":"joao@example.com"
-  }'
+### 📝 Exemplo de Requisição - Listar Alunos com Filtros
 
-# Listar alunos
-curl http://localhost:8080/alunos?page=0&size=10
-
-# Relatório de faturamento
-curl http://localhost:8080/relatorios/faturamento-mensal
+```http
+GET /alunos?nome=João&cidade=São Paulo&page=0&size=10 HTTP/1.1
+Host: localhost:8080
 ```
 
-## 🏗️ Arquitetura
+**Parâmetros de Filtro:**
+- `nome`: Filtrar por nome (parcial)
+- `email`: Filtrar por email
+- `celular`: Filtrar por celular
+- `cidade`: Filtrar por cidade
+- `estado`: Filtrar por estado
 
-O projeto segue a arquitetura em camadas:
+---
+
+## 🗄️ Migrações de Banco de Dados
+
+O projeto utiliza **Flyway** para controle de versão do banco de dados. As migrações são scripts SQL que versionam o schema do banco.
+
+### 📂 Localização das Migrações
 
 ```
-┌─────────────────────────────────────────┐
-│         REST Controllers                 │
-│    (AlunoController, Relatórios)        │
-└─────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────┐
-│         Services (Lógica)                │
-│       (AlunoService, etc)               │
-└─────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────┐
-│      Repository (JPA/Hibernate)         │
-│     (AlunoRepository, etc)              │
-└─────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────┐
-│      PostgreSQL Database                 │
-└─────────────────────────────────────────┘
+src/main/resources/db/migration/
 ```
 
-### Padrões Utilizados
+### 🔄 Comportamento das Migrações
 
-- **MVC**: Model-View-Controller
-- **DTO**: Data Transfer Objects para requisições/respostas
-- **JPA Specification**: Para consultas dinâmicas com filtros
-- **Exceptions**: GlobalExceptionHandler para tratamento centralizado
-- **Projections**: Para otimizar queries de relatórios
-- **Validação**: Bean Validation com Jakarta Validation
+- As migrações são executadas **automaticamente** ao iniciar a aplicação
+- Cada migração tem um número de versão (ex: `V1__init.sql`)
+- Migrações anteriormente executadas não são repetidas
+- Flyway mantém histórico em uma tabela `flyway_schema_history`
 
-## 🛡️ Tratamento de Exceções
+### 📝 Exemplo de Migração
 
-A aplicação possui tratamento centralizado de exceções através de `GlobalExceptionHandler`:
+```sql
+-- V1__create_alunos_table.sql
+CREATE TABLE alunos (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(150) NOT NULL,
+    data_nascimento DATE,
+    sexo CHAR(1),
+    telefone VARCHAR(30),
+    celular VARCHAR(30),
+    email VARCHAR(140) UNIQUE,
+    observacao TEXT,
+    endereco VARCHAR(150),
+    numero VARCHAR(5),
+    complemento VARCHAR(150),
+    bairro VARCHAR(130),
+    cidade VARCHAR(130),
+    estado VARCHAR(2),
+    cep VARCHAR(20),
+    criado_em TIMESTAMP,
+    atualizado_em TIMESTAMP
+);
+```
 
-- **RegraNegocioException**: Para violações de regra de negócio
-- **MethodArgumentNotValidException**: Para erros de validação
-- **Respostas estruturadas** com timestamp, código HTTP e mensagens
+---
 
-## 📚 Validações Implementadas
+## 📚 Documentação da API
 
-- Email deve ser único e válido
-- Nome obrigatório (até 150 caracteres)
-- Data de nascimento deve estar no passado
-- Sexo deve ser M ou F
-- CEP, telefone e celular com validação de tamanho
-- Valores de planos devem ser >= 0
-- Dia de vencimento entre 1 e 31
+### Acessar Swagger UI
 
-## 🔄 Fluxo de Uso Típico
+Após iniciar a aplicação, acesse a documentação interativa em:
 
-1. **Cadastrar Aluno**: Criar novo aluno com dados pessoais
-2. **Criar Matrícula**: Associar aluno à academia
-3. **Adicionar Modalidades**: Vincular aluno a modalidades específicas
-4. **Gerar Faturas**: Sistema gera faturas mensais automaticamente
-5. **Registrar Assiduidade**: Controlar entrada/saída nas aulas
-6. **Gerar Relatórios**: Acompanhar faturamento e receita
+```
+http://localhost:8080/swagger-ui.html
+```
 
-## 📈 Próximas Atualizações Planejadas
+### Recursos Disponíveis
 
-- [ ] **Interface Web/Frontend**: Dashboard com Angular/React
-- [ ] **Autenticação e Autorização**: JWT e Spring Security
-- [ ] **Mais Relatórios**: Frequência de alunos, receita por modalidade
-- [ ] **Notificações**: Email de vencimento de mensalidade
-- [ ] **Bulk Operations**: Gerar múltiplas faturas em lote
-- [ ] **Integração com Pagamento**: Stripe, PagSeguro, etc.
-- [ ] **Mobile App**: App nativa para controle de assiduidade
-- [ ] **Backup Automático**: Agendamento de backups
-- [ ] **Histórico de Alterações**: Auditoria de dados
-- [ ] **API mais completa**: Endpoints para todas as entidades
+- **Títlo**: Academia API
+- **Versão**: v1.0.0
+- **Descrição**: API para gerenciamento de academia com cadastro de alunos, matrículas, controle financeiro e relatórios
 
-## 🐛 Tratamento de Erros
+### Contato
 
-### Exemplos de Respostas de Erro
+- **Nome**: Rafael Dos Santos
+- **Email**: rafaeldosantos__@outlook.com
 
-**Email duplicado (400 Bad Request):**
+---
+
+## 🛡️ Tratamento de Erros
+
+A aplicação implementa um tratamento global de exceções. Todos os erros retornam no seguinte formato:
+
+### Erro de Validação (400 Bad Request)
+
 ```json
 {
-  "timestamp": "2024-01-15T10:30:00",
+  "timestamp": "2025-06-07T12:30:45.123",
   "status": 400,
-  "titulo": "Erro de regra de negócio",
-  "mensagens": ["Já existe um aluno com esse email"]
-}
-```
-
-**Validação falha (400 Bad Request):**
-```json
-{
-  "timestamp": "2024-01-15T10:30:00",
-  "status": 400,
-  "titulo": "Erro de validação.",
-  "mensagens": [
-    "email: Email inválido.",
-    "nome: O Nome é obrigatório"
+  "message": "Erro de validação.",
+  "errors": [
+    "nome: O Nome é obrigatório",
+    "email: Email inválido."
   ]
 }
 ```
 
-**Aluno não encontrado (404 Not Found):**
+### Erro de Regra de Negócio (400 Bad Request)
+
 ```json
 {
-  "timestamp": "2024-01-15T10:30:00",
+  "timestamp": "2025-06-07T12:30:45.123",
   "status": 400,
-  "titulo": "Erro de regra de negócio",
-  "mensagens": ["Esse aluno não existe"]
+  "message": "Erro de regra de negócio",
+  "errors": [
+    "Já existe um aluno com esse email"
+  ]
 }
 ```
 
-## 📞 Suporte e Contribuições
+### Erro de Recurso não Encontrado (404 Not Found)
 
-Este é um projeto em desenvolvimento ativo. 
+```json
+{
+  "timestamp": "2025-06-07T12:30:45.123",
+  "status": 404,
+  "message": "Recurso não encontrado",
+  "errors": [
+    "Esse aluno não existe"
+  ]
+}
+```
 
-### Reportar Problemas
-Para reportar bugs ou problemas, abra uma [Issue no GitHub](https://github.com/rafasantosdevv/sysMarcial/issues)
+---
 
-### Sugerir Melhorias
-Tem uma ideia? Abra uma [Discussion](https://github.com/rafasantosdevv/sysMarcial/discussions)
+## 📈 Próximas Atualizações
 
-### Contribuir
-Pull requests são bem-vindas! 
+Este projeto está em constante desenvolvimento. Algumas melhorias planejadas incluem:
+
+- [ ] Interface web (Frontend com React/Angular)
+- [ ] Autenticação e autorização (JWT/OAuth2)
+- [ ] Relatórios avançados (PDF, Excel)
+- [ ] Notificações de vencimento de mensalidade (Email/SMS)
+- [ ] Dashboard de estatísticas em tempo real
+- [ ] Integração com sistemas de pagamento (Stripe, PayPal)
+- [ ] Backup automático do banco de dados
+- [ ] Endpoints completos para todas as entidades
+- [ ] Testes unitários e de integração
+- [ ] Docker e Docker Compose para deploy
+- [ ] CI/CD com GitHub Actions
+- [ ] Cache com Redis
+- [ ] WebSockets para atualizações em tempo real
+
+---
+
+## 🤝 Contribuições
+
+Este é um projeto em desenvolvimento e sugestões de melhorias são bem-vindas! 
+
+Se você deseja contribuir:
+
+1. Faça um **fork** do repositório
+2. Crie uma **branch** para sua feature (`git checkout -b feature/MinhaFeature`)
+3. **Commit** suas mudanças (`git commit -m 'Adiciona minha feature'`)
+4. **Push** para a branch (`git push origin feature/MinhaFeature`)
+5. Abra um **Pull Request**
+
+### Diretrizes de Contribuição:
+- Sempre crie testes para novas funcionalidades
+- Siga as convenções de código existentes
+- Mantenha o padrão de nomes em português
+- Atualize a documentação conforme necessário
+
+---
 
 ## 👤 Autor
 
 **Rafael Santos**
 - GitHub: [@rafasantosdevv](https://github.com/rafasantosdevv)
 - Email: rafaeldosantos__@outlook.com
+- LinkedIn: [Rafael Santos](#)
+
+---
 
 ## 📝 Licença
 
-Este projeto ainda não possui uma licença definida. Verifique o repositório para mais detalhes.
+Este projeto ainda não possui uma licença definida. Verifique as configurações do repositório para mais detalhes.
+
+Para mais informações sobre as licenças disponíveis, consulte [Choose a License](https://choosealicense.com/).
 
 ---
 
-## 📌 Notas Importantes
+## 📞 Suporte
 
-- ⚠️ O projeto está em desenvolvimento inicial
-- 🔐 Dados sensíveis (banco de dados, credenciais) devem ser protegidos
-- 🗂️ Flyway gerencia o schema do banco - não edite tabelas manualmente
-- 📊 Use relatórios para análises, não queries diretas no banco em produção
-- 🔄 Sempre teste novas funcionalidades antes de fazer deploy
+Se encontrar algum problema ou tiver dúvidas:
+
+1. Verifique as [Issues](https://github.com/rafasantosdevv/sysMarcial/issues) existentes
+2. Consulte a documentação Swagger: `http://localhost:8080/swagger-ui.html`
+3. Abra uma nova [Issue](https://github.com/rafasantosdevv/sysMarcial/issues/new)
 
 ---
 
-**Última atualização**: Junho de 2026  
-**Versão**: 0.0.1-SNAPSHOT
+## 🎓 Sobre o Projeto
+
+Este projeto foi desenvolvido como uma aplicação de aprendizado próprio com foco em:
+- Arquitetura clean code
+- Boas práticas de desenvolvimento Java
+- Design patterns e princípios SOLID
+- Desenvolvimento RESTful com Spring Boot
+- Persistência de dados com JPA/Hibernate
+- Validação e tratamento de exceções
+
+---
+
+**Última atualização**: Junho de 2025
+
+Desenvolvido com ❤️ por [Rafael Santos](https://github.com/rafasantosdevv)
