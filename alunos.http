@@ -86,3 +86,15 @@ GET {{baseUrl}}/alunos?cidade=Coritiba&page=0&size=10&sort=nome,asc
 
 ###Listar Por Estado
 GET {{baseUrl}}/alunos?estado=SP&page=0&size=10&sort=nome,asc
+
+###Relatórios
+GET {{baseUrl}}/relatorios
+
+###Relatórios mensal
+GET {{baseUrl}}/relatorios/faturamento-mensal
+
+###Relatórios de alunos por cidade
+GET {{baseUrl}}/relatorios/alunos-por-cidade
+
+###Relatórios de faturas em aberto
+GET {{baseUrl}}/relatorios/faturas-em-aberto
